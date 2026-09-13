@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { api, type HistoryEvent } from '../api/client';
 import { chapters } from '../data/chapters';
 import { examTopicWeights, examWeightsTotal, pdfCoverage } from '../data/examWeights';
 import { signs } from '../data/signs';
@@ -6,6 +8,7 @@ import { useProgress } from '../hooks/useProgress';
 
 export function ProgressPage() {
   const { progress, studiedPct, totalRules, resetProgress } = useProgress();
+  const [activity, setActivity] = useState<HistoryEvent[]>([]);
   const examAttempts = progress.quizHistory.filter((h) => h.mode === 'exam');
   const bestExam = examAttempts.reduce(
     (best, h) => Math.max(best, Math.round((h.score / h.total) * 100)),
@@ -14,13 +17,28 @@ export function ProgressPage() {
   const weightsTotal = examWeightsTotal();
   const coveredCount = pdfCoverage.filter((c) => c.covered).length;
 
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .getHistory(40)
+      .then((r) => {
+        if (!cancelled) setActivity(r.history);
+      })
+      .catch(() => {
+        if (!cancelled) setActivity([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [progress.quizHistory.length, progress.studiedRules.length, progress.masteredSigns.length]);
+
   return (
     <div>
       <div className="section-head">
         <div>
           <span className="eyebrow">Statistika</span>
           <h1>Jūsų pažanga</h1>
-          <p>Duomenys saugomi šiame įrenginyje (localStorage).</p>
+          <p>Pažanga ir veiklos istorija sinchronizuojama su jūsų paskyra.</p>
         </div>
         <button className="btn btn-danger" type="button" onClick={resetProgress}>
           Nunulinti
@@ -106,17 +124,34 @@ export function ProgressPage() {
         ))}
       </div>
 
-      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.85rem' }}>Istorija</h2>
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.85rem' }}>Testų rezultatai</h2>
       {progress.quizHistory.length === 0 ? (
         <p className="empty">Dar nėra bandymų. Išbandykite testą arba egzaminą.</p>
       ) : (
-        <div className="history-list">
+        <div className="history-list" style={{ marginBottom: '2rem' }}>
           {progress.quizHistory.map((h, idx) => (
             <div key={`${h.date}-${idx}`} className="history-item">
               <span>
                 {h.mode === 'exam' ? 'Egzaminas' : 'Testas'} · {h.score}/{h.total}
               </span>
               <span className="muted">{h.date}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.85rem' }}>Veiklos istorija</h2>
+      {activity.length === 0 ? (
+        <p className="empty">Veiklos įrašų dar nėra — mokykitės, kad atsirastų.</p>
+      ) : (
+        <div className="history-list">
+          {activity.map((h) => (
+            <div key={h.id} className="history-item">
+              <span>
+                <strong>{h.type}</strong>
+                {h.detail ? ` · ${h.detail}` : ''}
+              </span>
+              <span className="muted">{new Date(h.createdAt).toLocaleString('lt-LT')}</span>
             </div>
           ))}
         </div>
