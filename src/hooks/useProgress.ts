@@ -112,8 +112,10 @@ export function useProgress() {
   }, []);
 
   const totalRules = chapters.reduce((n, c) => n + c.rules.length, 0);
+  const knownRuleIds = new Set(chapters.flatMap((c) => c.rules.map((r) => r.id)));
+  const studiedCount = progress.studiedRules.filter((id) => knownRuleIds.has(id)).length;
   const studiedPct = totalRules
-    ? Math.round((progress.studiedRules.length / totalRules) * 100)
+    ? Math.min(100, Math.round((studiedCount / totalRules) * 100))
     : 0;
 
   return {

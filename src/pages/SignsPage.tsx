@@ -4,17 +4,23 @@ import { SignVisual } from '../components/SignVisual';
 import { signCategories, signs } from '../data/signs';
 import type { SignCategory } from '../data/types';
 import { useProgress } from '../hooks/useProgress';
+import { useUserContent } from '../hooks/useUserContent';
 
 export function SignsPage() {
   const [cat, setCat] = useState<SignCategory | 'all'>('all');
   const [activeId, setActiveId] = useState<string | null>(null);
   const { progress, markSignMastered } = useProgress();
+  const { content } = useUserContent();
 
-  const filtered = useMemo(
-    () => (cat === 'all' ? signs : signs.filter((s) => s.category === cat)),
-    [cat],
+  const allSigns = useMemo(
+    () => [...signs, ...content.customSigns],
+    [content.customSigns],
   );
-  const active = signs.find((s) => s.id === activeId) ?? null;
+  const filtered = useMemo(
+    () => (cat === 'all' ? allSigns : allSigns.filter((s) => s.category === cat)),
+    [cat, allSigns],
+  );
+  const active = allSigns.find((s) => s.id === activeId) ?? null;
 
   return (
     <div>

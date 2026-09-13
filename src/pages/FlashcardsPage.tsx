@@ -4,9 +4,14 @@ import { SignVisual } from '../components/SignVisual';
 import { signs } from '../data/signs';
 import { shuffle } from '../data/questions';
 import { useProgress } from '../hooks/useProgress';
+import { useUserContent } from '../hooks/useUserContent';
 
 export function FlashcardsPage() {
-  const deck = useMemo(() => shuffle(signs), []);
+  const { content } = useUserContent();
+  const deck = useMemo(
+    () => shuffle([...signs, ...content.customSigns]),
+    [content.customSigns],
+  );
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const { markSignMastered, progress } = useProgress();
@@ -26,7 +31,7 @@ export function FlashcardsPage() {
           <h1>Ženklų kortelės</h1>
           <p>
             Spustelėkite kortelę, kad pamatytumėte atsakymą. {progress.masteredSigns.length}/
-            {signs.length} išmokta.
+            {deck.length} išmokta.
           </p>
         </div>
         <Link className="btn btn-ghost" to="/zenklai">

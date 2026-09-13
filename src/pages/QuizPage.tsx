@@ -4,6 +4,7 @@ import { chapters } from '../data/chapters';
 import { getQuestionsByChapter, questions, shuffle } from '../data/questions';
 import type { ChapterId, QuizQuestion } from '../data/types';
 import { useProgress } from '../hooks/useProgress';
+import { useUserContent } from '../hooks/useUserContent';
 
 export function QuizEngine({
   items,
@@ -164,10 +165,16 @@ export function QuizPage() {
   const tema = params.get('tema') as ChapterId | null;
   const [picked, setPicked] = useState<ChapterId | 'all'>(tema ?? 'all');
 
+  const { content } = useUserContent();
+
   const items = useMemo(() => {
-    const pool = picked === 'all' ? questions : getQuestionsByChapter(picked);
+    const custom = content.customQuestions;
+    const base = picked === 'all' ? questions : getQuestionsByChapter(picked);
+    const pool = picked === 'all'
+      ? [...base, ...custom]
+      : [...base, ...custom.filter((q) => q.chapterId === picked)];
     return shuffle(pool).slice(0, Math.min(10, pool.length));
-  }, [picked]);
+  }, [picked, content.customQuestions]);
 
   const key = `${picked}-${items[0]?.id ?? 'empty'}-${items.length}`;
 

@@ -12,7 +12,11 @@ export type ChapterId =
   | 'lenkimas'
   | 'sustojimas'
   | 'zenklai'
-  | 'sauga';
+  | 'sauga'
+  | 'manevrai'
+  | 'gelezinkelis'
+  | 'automagistrale'
+  | 'ivykis';
 
 export interface Rule {
   id: string;
@@ -20,6 +24,9 @@ export interface Rule {
   title: string;
   text: string;
   tip?: string;
+  /** Built-in quiz / sign attachments shown on the learning card */
+  relatedQuestionIds?: string[];
+  relatedSignIds?: string[];
 }
 
 export interface Chapter {

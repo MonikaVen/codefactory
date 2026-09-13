@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { chapters } from '../data/chapters';
+import { examTopicWeights, examWeightsTotal, pdfCoverage } from '../data/examWeights';
 import { signs } from '../data/signs';
 import { useProgress } from '../hooks/useProgress';
 
@@ -10,6 +11,8 @@ export function ProgressPage() {
     (best, h) => Math.max(best, Math.round((h.score / h.total) * 100)),
     0,
   );
+  const weightsTotal = examWeightsTotal();
+  const coveredCount = pdfCoverage.filter((c) => c.covered).length;
 
   return (
     <div>
@@ -19,7 +22,7 @@ export function ProgressPage() {
           <h1>Jūsų pažanga</h1>
           <p>Duomenys saugomi šiame įrenginyje (localStorage).</p>
         </div>
-        <button className="btn btn-danger" onClick={resetProgress}>
+        <button className="btn btn-danger" type="button" onClick={resetProgress}>
           Nunulinti
         </button>
       </div>
@@ -46,6 +49,41 @@ export function ProgressPage() {
           <div className="label">Geriausias egzaminas</div>
           <div className="value">{examAttempts.length ? `${bestExam}%` : '—'}</div>
         </div>
+      </div>
+
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
+        Egzamino temų svoriai ({weightsTotal} %)
+      </h2>
+      <p style={{ color: 'var(--muted)', marginBottom: '0.85rem', fontSize: '0.92rem' }}>
+        Orientaciniai svoriai mokymuisi — visada sudaro lygiai 100 %.
+      </p>
+      <div className="weight-list">
+        {examTopicWeights.map((w) => (
+          <div key={w.chapterId} className="weight-row">
+            <span>{w.label}</span>
+            <strong>{w.percent}%</strong>
+            <div className="weight-bar">
+              <span style={{ width: `${Math.min(100, w.percent * 4)}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
+        KET PDF padengimas ({coveredCount}/{pdfCoverage.length})
+      </h2>
+      <p style={{ color: 'var(--muted)', marginBottom: '0.85rem', fontSize: '0.92rem' }}>
+        Ne visi PDF skyriai turi testų klausimų. Trūkumus galite užpildyti pridėdami klausimą
+        mokymosi kortelėje.
+      </p>
+      <div className="coverage-list">
+        {pdfCoverage.map((row) => (
+          <div key={row.pdfChapter} className={`coverage-row ${row.covered ? 'ok' : 'gap'}`}>
+            <span>{row.pdfChapter}</span>
+            <strong>{row.covered ? 'Yra' : 'Trūksta'}</strong>
+            <span className="coverage-note">{row.note}</span>
+          </div>
+        ))}
       </div>
 
       <h2 style={{ fontSize: '1.25rem', marginBottom: '0.85rem' }}>Skyrių testai</h2>

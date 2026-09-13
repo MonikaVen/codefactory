@@ -165,7 +165,7 @@ p {
 
 .main {
   flex: 1;
-  width: min(1120px, 100%);
+  width: min(1360px, 100%);
   margin: 0 auto;
   padding: 1.5rem 1.25rem 4rem;
 }
@@ -247,17 +247,18 @@ p {
 
 .grid-chapters {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
 }
 
 .chapter-tile {
   position: relative;
-  padding: 1.25rem 1.2rem 1.35rem;
+  padding: 1.45rem 1.4rem 1.5rem;
   border-radius: var(--radius);
   background: linear-gradient(160deg, var(--bg-elevated), var(--bg-soft));
   border: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
+  min-height: 168px;
   transition: border-color 0.2s, transform 0.2s;
   animation: rise 0.5s ease both;
 }
@@ -304,14 +305,16 @@ p {
 .rule-list {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 1.1rem;
+  max-width: none;
 }
 
 .rule-card {
-  padding: 1.15rem 1.2rem;
+  padding: 1.6rem 1.85rem 1.7rem;
   border-radius: var(--radius);
   background: var(--bg-elevated);
   border: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
   animation: rise 0.45s ease both;
 }
 
@@ -461,16 +464,17 @@ p {
 
 .signs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
 }
 
 .sign-card {
-  padding: 1rem;
+  padding: 1.25rem 1.1rem;
   border-radius: var(--radius);
   background: var(--bg-elevated);
   border: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
+  min-height: 210px;
   transition: border-color 0.2s, transform 0.2s;
   animation: rise 0.4s ease both;
 }
@@ -486,8 +490,8 @@ p {
 }
 
 .sign-visual {
-  width: 88px;
-  height: 88px;
+  width: 104px;
+  height: 104px;
   margin: 0 auto 0.85rem;
 }
 
@@ -529,14 +533,16 @@ p {
 }
 
 .flash-stage {
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
   perspective: 1000px;
+  width: 100%;
 }
 
 .flash-card {
   position: relative;
-  min-height: 320px;
+  min-height: 380px;
+  width: 100%;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
   cursor: pointer;
@@ -808,6 +814,150 @@ p {
   }
 }
 
+.card-attachments {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.card-attachments h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.attach-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.attach-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.attach-item .sign-visual {
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.attach-item .meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.attach-item .meta p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 0.2rem;
+}
+
+.attach-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.attach-form {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 197, 24, 0.05);
+  border: 1px solid rgba(245, 197, 24, 0.18);
+}
+
+.attach-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.attach-form input,
+.attach-form select,
+.attach-form textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f141d;
+  color: var(--text);
+  font: inherit;
+}
+
+.attach-form textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.attach-form .row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.weight-list,
+.coverage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.75rem;
+}
+
+.weight-row,
+.coverage-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.weight-bar {
+  grid-column: 1 / -1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.weight-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+}
+
+.coverage-row.gap {
+  border-color: rgba(239, 93, 76, 0.35);
+}
+
+.coverage-row.ok {
+  border-color: rgba(61, 186, 122, 0.28);
+}
+
+.coverage-note {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 @media (max-width: 720px) {
   .nav {
     height: auto;
@@ -829,5 +979,17 @@ p {
 
   .hero {
     min-height: calc(100svh - 100px);
+  }
+
+  .attach-form .row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-chapters {
+    grid-template-columns: 1fr;
+  }
+
+  .signs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
