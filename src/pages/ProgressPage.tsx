@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api, type HistoryEvent } from '../api/client';
+import { useAuth } from '../auth/AuthContext';
 import { chapters } from '../data/chapters';
 import { examTopicWeights, examWeightsTotal, pdfCoverage } from '../data/examWeights';
 import { signs } from '../data/signs';
 import { useProgress } from '../hooks/useProgress';
 
 export function ProgressPage() {
+  const { user } = useAuth();
   const { progress, studiedPct, totalRules, resetProgress } = useProgress();
   const [activity, setActivity] = useState<HistoryEvent[]>([]);
   const examAttempts = progress.quizHistory.filter((h) => h.mode === 'exam');
@@ -18,6 +20,10 @@ export function ProgressPage() {
   const coveredCount = pdfCoverage.filter((c) => c.covered).length;
 
   useEffect(() => {
+    if (!user) {
+      setActivity([]);
+      return;
+    }
     let cancelled = false;
     api
       .getHistory(40)
@@ -30,7 +36,7 @@ export function ProgressPage() {
     return () => {
       cancelled = true;
     };
-  }, [progress.quizHistory.length, progress.studiedRules.length, progress.masteredSigns.length]);
+  }, [user, progress.quizHistory.length, progress.studiedRules.length, progress.masteredSigns.length]);
 
   return (
     <div>
@@ -38,7 +44,18 @@ export function ProgressPage() {
         <div>
           <span className="eyebrow">Statistika</span>
           <h1>Jūsų pažanga</h1>
-          <p>Pažanga ir veiklos istorija sinchronizuojama su jūsų paskyra.</p>
+          <p>
+            {user
+              ? 'Pažanga ir veiklos istorija sinchronizuojama su jūsų paskyra.'
+              : 'Galite mokytis be paskyros — pažanga saugoma šiame įrenginyje. Prisijunkite, jei norite sinchronizuoti istoriją.'}
+          </p>
+          {!user && (
+            <p className="muted" style={{ marginTop: '0.5rem' }}>
+              <Link to="/prisijungti">Prisijungti</Link>
+              {' · '}
+              <Link to="/registracija">Registruotis</Link>
+            </p>
+          )}
         </div>
         <button className="btn btn-danger" type="button" onClick={resetProgress}>
           Nunulinti
@@ -141,7 +158,12 @@ export function ProgressPage() {
       )}
 
       <h2 style={{ fontSize: '1.25rem', marginBottom: '0.85rem' }}>Veiklos istorija</h2>
-      {activity.length === 0 ? (
+      {!user ? (
+        <p className="empty">
+          Stebima veiklos istorija pasiekiama prisijungus.{' '}
+          <Link to="/prisijungti">Prisijunkite</Link>, kad sektumėte mokymąsi visuose įrenginiuose.
+        </p>
+      ) : activity.length === 0 ? (
         <p className="empty">Veiklos įrašų dar nėra — mokykitės, kad atsirastų.</p>
       ) : (
         <div className="history-list">

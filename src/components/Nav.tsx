@@ -20,17 +20,16 @@ export function Nav() {
         <span>KET Mokykla</span>
       </NavLink>
       <nav className="nav-links" aria-label="Pagrindinė navigacija">
-        {user &&
-          links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-            >
-              {l.label}
-            </NavLink>
-          ))}
+        {links.map((l) => (
+          <NavLink
+            key={l.to}
+            to={l.to}
+            end={l.end}
+            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+          >
+            {l.label}
+          </NavLink>
+        ))}
         {isAdmin && (
           <NavLink to="/admin" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
             Admin

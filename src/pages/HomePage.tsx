@@ -23,6 +23,9 @@ export function HomePage() {
               Simuliuoti egzaminą
             </Link>
           </div>
+          <p className="lead" style={{ marginTop: '1rem', fontSize: '0.92rem' }}>
+            Mokytis galite be paskyros. Prisijunkite tik jei norite saugoti istoriją debesyje.
+          </p>
           {(studiedPct > 0 || progress.streak > 0) && (
             <p className="lead" style={{ marginTop: '1.5rem', fontSize: '0.95rem' }}>
               Jūsų pažanga: {studiedPct}% taisyklių · {progress.streak} d. serija

@@ -33,7 +33,9 @@ export function LoginPage() {
       <form className="auth-card" onSubmit={onSubmit}>
         <span className="eyebrow">Paskyra</span>
         <h1>Prisijungti</h1>
-        <p className="muted">Sekite pažangą ir istoriją visuose įrenginiuose.</p>
+        <p className="muted">
+          Turinys prieinamas ir be paskyros. Prisijunkite, jei norite sinchronizuoti pažangą.
+        </p>
         {error && <div className="auth-error">{error}</div>}
         <label>
           El. paštas

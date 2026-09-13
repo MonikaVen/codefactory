@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
-import { RequireAdmin, RequireAuth } from './auth/RequireAuth';
+import { RequireAdmin } from './auth/RequireAuth';
 import { Nav } from './components/Nav';
 import { AdminPage } from './pages/AdminPage';
 import { ChapterPage } from './pages/ChapterPage';
@@ -24,70 +24,14 @@ export default function App() {
             <Routes>
               <Route path="/prisijungti" element={<LoginPage />} />
               <Route path="/registracija" element={<RegisterPage />} />
-              <Route
-                path="/"
-                element={
-                  <RequireAuth>
-                    <HomePage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/mokytis"
-                element={
-                  <RequireAuth>
-                    <StudyPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/mokytis/:chapterId"
-                element={
-                  <RequireAuth>
-                    <ChapterPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/zenklai"
-                element={
-                  <RequireAuth>
-                    <SignsPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/korteles"
-                element={
-                  <RequireAuth>
-                    <FlashcardsPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/testas"
-                element={
-                  <RequireAuth>
-                    <QuizPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/egzaminas"
-                element={
-                  <RequireAuth>
-                    <ExamPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/pazanga"
-                element={
-                  <RequireAuth>
-                    <ProgressPage />
-                  </RequireAuth>
-                }
-              />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/mokytis" element={<StudyPage />} />
+              <Route path="/mokytis/:chapterId" element={<ChapterPage />} />
+              <Route path="/zenklai" element={<SignsPage />} />
+              <Route path="/korteles" element={<FlashcardsPage />} />
+              <Route path="/testas" element={<QuizPage />} />
+              <Route path="/egzaminas" element={<ExamPage />} />
+              <Route path="/pazanga" element={<ProgressPage />} />
               <Route
                 path="/admin"
                 element={
