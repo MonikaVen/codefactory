@@ -489,10 +489,27 @@ p {
   border-color: rgba(61, 186, 122, 0.4);
 }
 
-.sign-visual {
+.sign-visual,
+.sign-photo {
   width: 104px;
   height: 104px;
   margin: 0 auto 0.85rem;
+  object-fit: contain;
+  background: transparent;
+  display: block;
+}
+
+.detail-panel .sign-visual,
+.detail-panel .sign-photo {
+  width: 140px;
+  height: 140px;
+}
+
+.flash-face .sign-visual,
+.flash-face .sign-photo {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
 }
 
 .sign-card h3 {

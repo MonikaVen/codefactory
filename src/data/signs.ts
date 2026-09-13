@@ -9,6 +9,7 @@ export const signCategories: { id: SignCategory; title: string; hint: string }[]
   { id: 'papildomi', title: 'Papildomos lentelės', hint: 'Po pagrindiniu ženklu' },
 ];
 
+/** Official KET 1 priedas codes; PNGs under /signs/{code}.png cropped from KET 2026 PDF. */
 export const signs: RoadSign[] = [
   {
     id: 's-bendras-pavojus',
@@ -59,24 +60,8 @@ export const signs: RoadSign[] = [
     shape: 'triangle',
   },
   {
-    id: 's-duoti-kelia',
-    code: '201',
-    name: 'Duoti kelią',
-    category: 'pirmenybes',
-    meaning: 'Privaloma duoti kelią kertamu ar prisijungiančiu keliu važiuojantiems.',
-    shape: 'triangle',
-  },
-  {
-    id: 's-stop',
-    code: '202',
-    name: 'Stop',
-    category: 'pirmenybes',
-    meaning: 'Privaloma sustoti prieš stop liniją (ar sankryžą) ir duoti kelią.',
-    shape: 'octagon',
-  },
-  {
     id: 's-pagrindinis',
-    code: '203',
+    code: '201',
     name: 'Pagrindinis kelias',
     category: 'pirmenybes',
     meaning: 'Žymi pagrindinį kelią. Sankryžose turite pirmenybę.',
@@ -84,18 +69,34 @@ export const signs: RoadSign[] = [
   },
   {
     id: 's-pagrindinis-pab',
-    code: '204',
+    code: '202',
     name: 'Pagrindinio kelio pabaiga',
     category: 'pirmenybes',
     meaning: 'Pagrindinio kelio pabaiga — toliau pirmenybės nėra.',
     shape: 'diamond',
   },
   {
+    id: 's-duoti-kelia',
+    code: '203',
+    name: 'Duoti kelią',
+    category: 'pirmenybes',
+    meaning: 'Privaloma duoti kelią kertamu ar prisijungiančiu keliu važiuojantiems.',
+    shape: 'triangle',
+  },
+  {
+    id: 's-stop',
+    code: '204',
+    name: 'Stop',
+    category: 'pirmenybes',
+    meaning: 'Privaloma sustoti prieš stop liniją (ar sankryžą) ir duoti kelią.',
+    shape: 'octagon',
+  },
+  {
     id: 's-ivaziuoti-draudziama',
     code: '301',
     name: 'Įvažiuoti draudžiama',
     category: 'draudziamieji',
-    meaning: 'Draudžiama įvažiuoti visoms transporto priemonėms (raudzona „plyta“).',
+    meaning: 'Draudžiama įvažiuoti visoms transporto priemonėms (išskyrus maršrutinį transportą).',
     shape: 'circle-red',
   },
   {
@@ -103,28 +104,28 @@ export const signs: RoadSign[] = [
     code: '302',
     name: 'Eismas draudžiamas',
     category: 'draudziamieji',
-    meaning: 'Draudžiamas abipusis eismas (išskyrus išimtis).',
+    meaning: 'Draudžiamas transporto priemonių eismas (išskyrus išimtis).',
+    shape: 'circle-red',
+  },
+  {
+    id: 's-lenkti-draudziama',
+    code: '325',
+    name: 'Lenkti draudžiama',
+    category: 'draudziamieji',
+    meaning: 'Draudžiama lenkti transporto priemones (išskyrus išimtis).',
     shape: 'circle-red',
   },
   {
     id: 's-greicio-apribojimas',
     code: '329',
-    name: 'Didžiausias greitis',
+    name: 'Ribotas greitis',
     category: 'draudziamieji',
     meaning: 'Draudžiama važiuoti greičiau nei nurodyta ženkle (km/h).',
     shape: 'circle-red',
   },
   {
-    id: 's-lenkti-draudziama',
-    code: '331',
-    name: 'Lenkti draudžiama',
-    category: 'draudziamieji',
-    meaning: 'Draudžiama lenkti motorines transporto priemones (išskyrus mopedsus ir pan.).',
-    shape: 'circle-red',
-  },
-  {
     id: 's-sustoti-draudziama',
-    code: '350',
+    code: '332',
     name: 'Sustoti draudžiama',
     category: 'draudziamieji',
     meaning: 'Draudžiama sustoti ir stovėti.',
@@ -132,58 +133,58 @@ export const signs: RoadSign[] = [
   },
   {
     id: 's-stoveti-draudziama',
-    code: '351',
+    code: '333',
     name: 'Stovėti draudžiama',
     category: 'draudziamieji',
     meaning: 'Draudžiama stovėti; trumpas sustojimas keleiviams gali būti leidžiamas.',
     shape: 'circle-red',
   },
   {
-    id: 's-judeti-desinen',
+    id: 's-judeti-tiesiai',
     code: '401',
-    name: 'Judėti dešinėn',
+    name: 'Važiuoti tiesiai',
     category: 'nurodomieji',
-    meaning: 'Leidžiama judėti tik dešinėn.',
+    meaning: 'Leidžiama važiuoti tik tiesiai.',
     shape: 'circle-blue',
   },
   {
-    id: 's-judeti-tiesiai',
-    code: '403',
-    name: 'Judėti tiesiai',
+    id: 's-judeti-desinen',
+    code: '402',
+    name: 'Važiuoti į dešinę',
     category: 'nurodomieji',
-    meaning: 'Leidžiama judėti tik tiesiai.',
+    meaning: 'Leidžiama važiuoti tik rodyklės kryptimi (į dešinę).',
     shape: 'circle-blue',
   },
   {
     id: 's-apvaziuoti-desine',
-    code: '411',
+    code: '407',
     name: 'Apvažiuoti iš dešinės',
     category: 'nurodomieji',
-    meaning: 'Kliūtį (salelę) apvažiuoti iš dešinės.',
+    meaning: 'Kliūtį apvažiuoti leidžiama tik iš dešinės.',
     shape: 'circle-blue',
   },
   {
     id: 's-ratus-eismas',
-    code: '418',
-    name: 'Sukamasis eismas',
+    code: '410',
+    name: 'Eismas ratu',
     category: 'nurodomieji',
-    meaning: 'Nurodo žiedinę (sukamąją) sankryžą.',
+    meaning: 'Leidžiama važiuoti tik rodyklių kryptimi (žiedinė sankryža).',
     shape: 'circle-blue',
   },
   {
     id: 's-dviraciu-takas',
-    code: '420',
+    code: '411',
     name: 'Dviračių takas',
     category: 'nurodomieji',
-    meaning: 'Privaloma važiuoti dviračių taku.',
+    meaning: 'Leidžiama važiuoti dviračiais ir elektrinėmis mikrojudumo priemonėmis.',
     shape: 'circle-blue',
   },
   {
     id: 's-pesciuju-takas',
-    code: '421',
+    code: '412',
     name: 'Pėsčiųjų takas',
     category: 'nurodomieji',
-    meaning: 'Takas skirtas pėstiesiems.',
+    meaning: 'Takas skirtas tik pėstiesiems.',
     shape: 'circle-blue',
   },
   {
@@ -195,11 +196,11 @@ export const signs: RoadSign[] = [
     shape: 'rectangle',
   },
   {
-    id: 's-gyvenamoji',
-    code: '530',
-    name: 'Gyvenamoji zona',
+    id: 's-stovejimo',
+    code: '528',
+    name: 'Stovėjimo vieta',
     category: 'informaciniai',
-    meaning: 'Gyvenamosios zonos pradžia. Greitis iki 20 km/h, pėstieji turi pirmenybę.',
+    meaning: 'Transporto priemonių stovėjimo vieta.',
     shape: 'rectangle',
   },
   {
@@ -207,15 +208,15 @@ export const signs: RoadSign[] = [
     code: '533',
     name: 'Pėsčiųjų perėja',
     category: 'informaciniai',
-    meaning: 'Žymi pėsčiųjų perėjos vietą.',
+    meaning: 'Perėjimo per kelią vieta.',
     shape: 'rectangle',
   },
   {
-    id: 's-stovejimo',
-    code: '540',
-    name: 'Stovėjimo vieta',
+    id: 's-gyvenamoji',
+    code: '552',
+    name: 'Gyvenamoji zona',
     category: 'informaciniai',
-    meaning: 'Leidžiama stovėti pažymėtoje vietoje / zonoje.',
+    meaning: 'Gyvenamosios zonos pradžia. Greitis iki 20 km/h, pėstieji turi pirmenybę.',
     shape: 'rectangle',
   },
   {
@@ -229,7 +230,7 @@ export const signs: RoadSign[] = [
   {
     id: 's-zona',
     code: '805',
-    name: 'Galiojimo zona',
+    name: 'Galiojimo zona į priekį',
     category: 'papildomi',
     meaning: 'Nurodo atstumą, kuriame galioja pagrindinis ženklas.',
     shape: 'rectangle',
@@ -238,4 +239,9 @@ export const signs: RoadSign[] = [
 
 export function getSignsByCategory(category: SignCategory): RoadSign[] {
   return signs.filter((s) => s.category === category);
+}
+
+export function signImageSrc(sign: Pick<RoadSign, 'code' | 'id'>): string | null {
+  if (/^\d{3}$/.test(sign.code)) return `/signs/${sign.code}.png`;
+  return null;
 }
